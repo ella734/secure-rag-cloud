@@ -1,0 +1,47 @@
+[
+  {
+    "config_name": "Configuration A (Fine-Grained)",
+    "chunk_size": 300,
+    "chunk_overlap": 60,
+    "top_k": 3,
+    "indexed_chunks": 40,
+    "faithfulness_pct": 89.6,
+    "answer_relevancy_pct": 57.2,
+    "context_precision_pct": 76.7,
+    "context_recall_pct": 54.7,
+    "refusal_accuracy_pct": 80.0,
+    "retrieval_latency_p50_ms": 0.44,
+    "retrieval_latency_p95_ms": 0.67,
+    "total_latency_p50_ms": 0.5
+  },
+  {
+    "config_name": "Configuration B (Balanced - Recommended)",
+    "chunk_size": 500,
+    "chunk_overlap": 100,
+    "top_k": 4,
+    "indexed_chunks": 27,
+    "faithfulness_pct": 93.5,
+    "answer_relevancy_pct": 58.9,
+    "context_precision_pct": 84.2,
+    "context_recall_pct": 56.0,
+    "refusal_accuracy_pct": 86.7,
+    "retrieval_latency_p50_ms": 0.5,
+    "retrieval_latency_p95_ms": 0.67,
+    "total_latency_p50_ms": 0.5
+  },
+  {
+    "config_name": "Configuration C (Broad Context)",
+    "chunk_size": 1000,
+    "chunk_overlap": 150,
+    "top_k": 5,
+    "indexed_chunks": 17,
+    "faithfulness_pct": 93.1,
+    "answer_relevancy_pct": 59.6,
+    "context_precision_pct": 83.3,
+    "context_recall_pct": 56.5,
+    "refusal_accuracy_pct": 83.3,
+    "retrieval_latency_p50_ms": 0.42,
+    "retrieval_latency_p95_ms": 0.52,
+    "total_latency_p50_ms": 0.5
+  }
+]

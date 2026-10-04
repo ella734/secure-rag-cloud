@@ -1,0 +1,30 @@
+{
+  "total_adversarial_scenarios": 30,
+  "total_blocked": 30,
+  "baseline_attack_success_rate_pct": 100.0,
+  "guarded_attack_success_rate_pct": 0.0,
+  "adversarial_reduction_pct": 100.0,
+  "false_positive_rate_pct": 0.0,
+  "breakdown": {
+    "Direct Override": {
+      "total": 9,
+      "blocked": 9
+    },
+    "Jailbreak/DAN": {
+      "total": 7,
+      "blocked": 7
+    },
+    "Delimiter Hijack": {
+      "total": 6,
+      "blocked": 6
+    },
+    "Prompt Leak": {
+      "total": 6,
+      "blocked": 6
+    },
+    "Obfuscated": {
+      "total": 2,
+      "blocked": 2
+    }
+  }
+}

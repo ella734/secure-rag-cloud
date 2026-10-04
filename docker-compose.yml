@@ -1,0 +1,25 @@
+services:
+  secure-rag-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: secure-rag-cloud:latest
+    container_name: secure-rag-api
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - ENVIRONMENT=production
+      - LOG_LEVEL=INFO
+      - APP_PORT=8000
+      - LLM_PROVIDER=mock
+      - EMBEDDING_PROVIDER=tfidf
+      - SECURITY_ENABLED=true
+      - RAG_TOP_K=4
+      - RAG_SIMILARITY_THRESHOLD=0.15
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/v1/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s

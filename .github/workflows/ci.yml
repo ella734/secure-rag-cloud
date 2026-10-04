@@ -1,0 +1,67 @@
+name: CI Pipeline - Lint, Test & Security Scan
+
+on:
+  push:
+    branches: [ "main", "master", "develop" ]
+  pull_request:
+    branches: [ "main", "master" ]
+
+jobs:
+  lint-and-test:
+    name: Code Quality & Unit Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Lint Code with Ruff
+        run: |
+          ruff check app tests evaluation
+
+      - name: Run PyTest Suite with Coverage Threshold
+        run: |
+          python -m pytest -v --cov=app --cov-report=term-missing --cov-report=xml --cov-fail-under=80
+
+      - name: Run Adversarial Security Evaluation (OWASP LLM01)
+        run: |
+          python evaluation/evaluate_security.py
+
+      - name: Upload Test Coverage Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: coverage.xml
+
+  docker-build-check:
+    name: Docker Image Build Validation
+    runs-on: ubuntu-latest
+    needs: lint-and-test
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build Container Image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./Dockerfile
+          push: false
+          tags: secure-rag-cloud:ci-test
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
